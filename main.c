@@ -1,34 +1,15 @@
 #include "philo.h"
 
-bool ft_check(int i)
+void ft_data_philo(int i, t_philo *philo, t_time *data)
 {
-    if (i % 2 == 0)
-        return (false);
-    return (true);
+    philo[i].id = i;
+    philo[i].data = data;
+    philo[i].n_eat = 0;
+    philo[i].fork = ft_check(i);
 }
 
-int ft_philo(t_philo *g)
-{
-    //create function that set at true or false for each philo in the array,done.
-    // if true take fork and eat
-    //if false sleep or think
-    //create function that change true to false and the opposite so other philo can eat
-    //
-    // 
-    g->fork = ft_check(g->id);
-    printf("philo number %d your fork is %d\n",g->id,g->fork);
-    return (EXIT_SUCCESS);
-}
 
-void ft_data(char **argv, t_time *data)
-{
-    data->philo = atoi(argv[1]);
-    data->die = atoi(argv[2]);
-    data->eat = atoi(argv[3]);
-    data->sleep = atoi(argv[4]);
-    data->die_eat = atoi(argv[5]);
-    data->fork = data->philo;
-}
+
 
 void *ft_pid(void *philo) 
 {
@@ -41,41 +22,45 @@ void *ft_pid(void *philo)
     return NULL;
 }
 
+int ft_philo(t_philo *g)
+{
+    //create function that set at true or false for each philo in the array,done.
+    // if true take fork and eat
+    //if false sleep or think
+    //create function that change true to false and the opposite so other philo can eat
+    //
+    // 
+    printf("philo number %d your fork is %d\n",g->id,g->fork);
+    return (EXIT_SUCCESS);
+}
+
+void ft_data(char **argv, t_time *data)
+{
+    data->philo = ft_atoi(argv[1]);
+    data->die = ft_atoi(argv[2]);
+    data->eat = ft_atoi(argv[3]);
+    data->sleep = ft_atoi(argv[4]);
+    data->die_eat = ft_atoi(argv[5]);
+    data->fork = data->philo;
+}
+
+
 int main (int argc, char **argv)
 {
     t_time data;
-    t_philo philo;
-    int i;
-    pthread_t *test;
+    t_philo *philo;
 
-    i = 0;
+
     if (argc >= 6)
     {
         ft_data(argv, &data);
-        test = malloc(sizeof(test) * data.philo);
-        philo.id = i;
-        while (i < data.philo)
-        {
-            if (pthread_create(&test[i], NULL, ft_pid, (void*)&philo) != 0)
-            {
-                write(2, "error with p_create\n", 21);
-                return (EXIT_FAILURE);
-            }
-            i++;
-            philo.id = i;
-            printf("id = %d\n",philo.id);
-        }
-        i = 0;
-        while (i < data.philo)
-        {
-            if (pthread_join(test[i], NULL) != 0)
-            {
-                write(2, "error with p_join\n", 19);
-                return (EXIT_FAILURE);
-            }
-            i++;
-        }
-        printf ("main\n");
+        philo = malloc(sizeof(t_philo) * data.philo);
+        if (philo == NULL)
+            return (EXIT_FAILURE);
+        //create mutex init
+        if (ft_init(philo, &data, data.philo) == 1)
+            return(EXIT_FAILURE);
+        free(philo);
     }
     else
       write(2, "pls enter a number\nexample ./a.out 10 10 10 10 10\n", 51);

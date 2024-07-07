@@ -6,8 +6,6 @@
 # include <stdlib.h>
 # include <stdbool.h>
 
-pthread_mutex_t lock;
-
 
 typedef struct s_time
 {
@@ -17,16 +15,27 @@ typedef struct s_time
     int die_eat;
     int fork;
     int philo;
+    pthread_mutex_t *fork;
+    pthread_mutex_t print;
+    pthread_mutex_t n_eat_mutex;
+    pthread_mutex_t lock;
 } t_time ;
 
 typedef struct s_philo
 {
-    bool fork;
+    int fork;
+    pthread_t thread;
     int n_eat;
-    t_time data;
+    t_time *data;
     int id;
+    
 } t_philo;
 
 
-pthread_mutex_t lock =  PTHREAD_MUTEX_INITIALIZER;
+
+void    *ft_pid(void *philo);
+void    ft_data(char **argv, t_time *data);
+int     ft_philo(t_philo *g);
+int     ft_check(int i);
+int     ft_atoi(char *nptr);
 #endif
