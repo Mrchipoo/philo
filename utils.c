@@ -6,3 +6,8 @@ int ft_check(int i)
         return (0);
     return (1);
 }
+
+void ft_print(char *s)
+{
+    printf("Error with %s\n",s);
+}
