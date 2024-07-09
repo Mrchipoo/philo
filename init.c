@@ -8,7 +8,7 @@ int ft_init(t_philo *philo, t_time *data, int num)
     while (i < num)
     {
         ft_data_philo(i, philo, data);
-        if (pthread_create(&philo[i].thread, NULL, ft_pid, &philo[i]) != 0)
+        if (pthread_create(&philo[i].thread, NULL, ft_routine, &philo[i]) != 0)
             return(ft_print("p_create"), EXIT_FAILURE);
         i++;
     }
@@ -16,7 +16,7 @@ int ft_init(t_philo *philo, t_time *data, int num)
     while (i < num)
     {
         if (pthread_join(philo[i].thread, NULL) != 0)
-        return(ft_print("p_join"), EXIT_FAILURE);
+            return(ft_print("p_join"), EXIT_FAILURE);
         i++;
     }
     return (0);
