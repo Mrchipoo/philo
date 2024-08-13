@@ -12,13 +12,6 @@ int ft_init(t_philo *philo, t_time *data, int num)
             return(ft_print("p_create"), EXIT_FAILURE);
         i++;
     }
-    i = 0;
-    while (i < num)
-    {
-        if (pthread_join(philo[i].thread, NULL) != 0)
-            return(ft_print("p_join"), EXIT_FAILURE);
-        i++;
-    }
     return (0);
 }
 
@@ -32,7 +25,7 @@ int ft_mutex_init(int num, t_time *data)
         return(ft_print("malloc"), EXIT_FAILURE);
     if (pthread_mutex_init(&data->print, NULL) != 0)
         return(ft_print("mutex_init"), EXIT_FAILURE);
-    if (pthread_mutex_init(&data->n_eat_mutex, NULL) != 0)
+    if (pthread_mutex_init(&data->meals, NULL) != 0)
         return(ft_print("mutex_init"), EXIT_FAILURE);
     if (pthread_mutex_init(&data->lock, NULL) != 0)
         return(ft_print("mutex_init"), EXIT_FAILURE); 
@@ -43,4 +36,23 @@ int ft_mutex_init(int num, t_time *data)
         i++;
     }  
     return (0);
+}
+
+int ft_mutex_join(t_time data, t_philo *philo)
+{
+    int i;
+
+    i = 0;
+    while (i < philo->data->philo)
+    {
+        if (pthread_join(philo[i].thread, NULL) != 0)
+            return(ft_print("p_join"), EXIT_FAILURE);
+        i++;
+    }
+    pthread_mutex_destroy(&data.print);
+    pthread_mutex_destroy(&data.meals);
+    pthread_mutex_destroy(&data.lock);
+    free(data.fork);
+    free(philo);
+    return 0;
 }

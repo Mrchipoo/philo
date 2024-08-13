@@ -9,32 +9,34 @@
 
 typedef struct s_time
 {
-    int time_to_eat;
-    int time_to_sleep;
-    int time_to_die;
+    size_t time_to_eat;
+    size_t time_to_sleep;
+    size_t time_to_die;
     int max_meals;
+    int dead;
     int philo;
     pthread_mutex_t *fork;
     pthread_mutex_t print;
-    pthread_mutex_t n_eat_mutex;
     pthread_mutex_t lock;
+    pthread_mutex_t meals;
 } t_time;
 
 typedef struct s_philo
 {
     pthread_t thread;
-    int n_eat;
     t_time *data;
     int id;
-    int dead;
+    int dead_check;
+    int nb_of_meals;
+    size_t last_meal;
     pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
-    
 } t_philo;
 
 
 
 void    *ft_routine(void *arg);
+void    ft_monitor(t_philo *philo);
 void    ft_data_philo(int i, t_philo *philo, t_time *data);
 void    ft_print(char *s);
 void    ft_data(char **argv, t_time *data);
@@ -45,4 +47,6 @@ int     ft_mutex_init(int num, t_time *data);
 int     ft_init(t_philo *philo, t_time *data, int num);
 int     ft_max(int i, int j);
 int     ft_min(int i, int j);
+int     ft_mutex_join(t_time data, t_philo *philo);
+size_t	get_current_time(void);
 #endif
