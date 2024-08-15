@@ -9,6 +9,8 @@ all: $(NAME)
 
 $(NAME): $(OBJECT) $(HEADER)
 	$(CC) $(GFLAGS) $(OBJECT) -g3 -o $(NAME)
+$(OBJECT): $(SRC)
+	$(CC) $(GFLAGS) $(SRC) -c
 
 clean:
 	rm -f $(OBJECT)

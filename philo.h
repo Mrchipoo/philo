@@ -36,10 +36,10 @@ typedef struct s_philo
 
 
 void    *ft_routine(void *arg);
-void    ft_monitor(t_philo *philo);
+void    ft_monitor(t_philo *philo, t_time *data);
 void    ft_data_philo(int i, t_philo *philo, t_time *data);
 void    ft_print(char *s);
-void    ft_data(char **argv, t_time *data);
+void    ft_data(int argc, char **argv, t_time *data);
 int     ft_philo(t_philo *g);
 void     ft_check(int i, t_philo *data);
 int     ft_atoi(char *nptr);

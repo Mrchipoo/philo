@@ -6,9 +6,9 @@ int main (int argc, char **argv)
     t_philo *philo;
 
 
-    if (argc >= 6)
+    if (argc == 6 || argc == 5)
     {
-        ft_data(argv, &data);
+        ft_data(argc, argv, &data);
         philo = malloc(sizeof(t_philo) * data.philo);
         if (philo == NULL)
             return (ft_print("malloc"), EXIT_FAILURE);
@@ -16,10 +16,10 @@ int main (int argc, char **argv)
             return (ft_print("mutex_init"), EXIT_FAILURE);
         if (ft_init(philo, &data, data.philo) == 1)
             return (ft_print("philo_init"), EXIT_FAILURE);
-        ft_monitor(philo);
+        ft_monitor(philo,&data);
         ft_mutex_join(data, philo);
     }
     else
-      write(2, "pls enter a number\nexample ./a.out 10 10 10 10 10\n", 51);
+      write(2, "pls enter a number\nexample ./a.out 10 800 200 200 50\n", 51);
     return (0);
 }

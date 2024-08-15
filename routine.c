@@ -8,11 +8,11 @@ int ft_routine_help(t_philo *philo, int id)
     pthread_mutex_lock(&philo->data->print);
     printf("philo n = %d took a l_fork\n", id);
     pthread_mutex_unlock(&philo->data->print);
-    if (philo->data->philo == 1)
-    {
-        pthread_mutex_unlock(philo->l_fork);
-        return (1);
-    }
+    // if (philo->data->philo == 1)
+    // {
+    //     pthread_mutex_unlock(philo->l_fork);
+    //     return (1);
+    // }
     pthread_mutex_lock(philo->r_fork);
     pthread_mutex_lock(&philo->data->print);
     printf("philo n = %d took a r_fork\n", id);

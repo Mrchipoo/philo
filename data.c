@@ -1,12 +1,16 @@
 #include "philo.h"
 
-void ft_data(char **argv, t_time *data)
+void ft_data(int argc, char **argv, t_time *data)
 {
     data->philo = ft_atoi(argv[1]);
     data->time_to_die = ft_atoi(argv[2]) * 1000;// in microseconds
     data->time_to_eat = ft_atoi(argv[3]) * 1000;
     data->time_to_sleep = ft_atoi(argv[4]) * 1000;
-    data->max_meals = ft_atoi(argv[5]);
+    if (argc == 6)
+        data->max_meals = ft_atoi(argv[5]);
+    else if (argc == 5)
+        data->max_meals = -1;
+    printf("meal = %d\n", data->max_meals);
     data->dead = 0;
 }
 
