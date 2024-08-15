@@ -1,6 +1,6 @@
 #include "philo.h"
 
-void ft_check(int i, t_philo *philo)
+void    ft_check(int i, t_philo *philo)
 {
     int k;
     int j;
@@ -11,9 +11,15 @@ void ft_check(int i, t_philo *philo)
     philo[i].r_fork = &philo->data->fork[j];
 }
 
-void ft_print(char *s)
+void    ft_print(t_philo *philo, char *s, int i, size_t time_to)
 {
-    printf("Error with %s\n",s);
+    if (i == 0)
+        printf("Error with %s\n",s);
+    else if (i == 1)
+    {
+        philo->data->time += time_to;
+        printf("%zuphilo number %d is %s\n",philo->data->time / 1000,philo->id,s);
+    }
 }
 
 int ft_min(int i, int j)
@@ -30,7 +36,7 @@ int ft_max(int i, int j)
     return (j);
 }
 
-size_t	get_current_time(void)
+size_t  get_current_time(void)
 {
 	struct timeval	time;
 

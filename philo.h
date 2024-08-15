@@ -15,6 +15,7 @@ typedef struct s_time
     int max_meals;
     int dead;
     int philo;
+    size_t time;
     pthread_mutex_t *fork;
     pthread_mutex_t print;
     pthread_mutex_t lock;
@@ -38,7 +39,7 @@ typedef struct s_philo
 void    *ft_routine(void *arg);
 void    ft_monitor(t_philo *philo, t_time *data);
 void    ft_data_philo(int i, t_philo *philo, t_time *data);
-void    ft_print(char *s);
+void    ft_print(t_philo *philo, char *s, int i, size_t time_to);
 void    ft_data(int argc, char **argv, t_time *data);
 int     ft_philo(t_philo *g);
 void     ft_check(int i, t_philo *data);

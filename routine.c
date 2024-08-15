@@ -34,14 +34,14 @@ void *ft_routine(void *arg)
         pthread_mutex_unlock(&philo->data->lock);
         usleep(philo->data->time_to_eat);
         pthread_mutex_lock(&philo->data->print);
-        printf("philo number %d is eating\n",philo->id);
+        ft_print(philo, "eating", 1,philo->data->time_to_eat);
         pthread_mutex_unlock(&philo->data->print);
         pthread_mutex_lock(&philo->data->meals);
         philo->nb_of_meals++;
         pthread_mutex_unlock(&philo->data->meals);
         pthread_mutex_unlock(philo->l_fork);
         pthread_mutex_unlock(philo->r_fork);
-        printf("philo number %d is sleeping\n",philo->id);
+        ft_print(philo, "slepping", 1,philo->data->time_to_sleep);
         usleep(philo->data->time_to_sleep);
         printf("philo number %d is thinking\n",philo->id);
         usleep(5000);

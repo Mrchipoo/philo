@@ -12,6 +12,7 @@ void ft_data(int argc, char **argv, t_time *data)
         data->max_meals = -1;
     printf("meal = %d\n", data->max_meals);
     data->dead = 0;
+    data->time = 0;
 }
 
 void ft_data_philo(int i, t_philo *philo, t_time *data)
