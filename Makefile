@@ -1,8 +1,8 @@
 CC = cc 
 NAME = philo
-GFLAGS =-Wall -Wextra -Werror -g3
+GFLAGS =-Wall -Wextra -Werror -g3 -fsanitize=address
 HEADER = philo.h
-SRC = atoi.c utils.c init.c routine.c data.c monitor.c main.c
+SRC = atoi.c math_utils.c init.c routine.c data.c monitor.c  string_utils.c main.c
 OBJECT = $(SRC:.c=.o)
 
 all: $(NAME)

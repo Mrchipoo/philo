@@ -9,12 +9,16 @@ int ft_routine_help(t_philo *philo, int id)
     if (philo->data->dead == 0)
         printf("%zu philo number = %d took a l_fork\n", philo->data->time,id);
     pthread_mutex_unlock(&philo->data->print);
-    pthread_mutex_lock(philo->r_fork);
-    pthread_mutex_lock(&philo->data->print);
-    if (philo->data->dead == 0)
-        printf("%zu philo number = %d took a r_fork\n", philo->data->time, id);
-    pthread_mutex_unlock(&philo->data->print);
-    return (0);
+    if (philo->data->philo != 1)
+    {
+        pthread_mutex_lock(philo->r_fork);
+        pthread_mutex_lock(&philo->data->print);
+        if (philo->data->dead == 0)
+            printf("%zu philo number = %d took a r_fork\n", philo->data->time, id);
+        pthread_mutex_unlock(&philo->data->print);
+        return (0);
+    }
+    return (1);
 }
 
 void *ft_routine(void *arg) 

@@ -24,7 +24,7 @@ int ft_dead(t_philo *philo, t_time *data)
         start = get_current_time();
         if (check_dead(&philo[i], start, data) == 1)
         {
-            printf("%zu philo n = %d is dead\n",philo->data->time ,philo[i].id);
+            printf("%zu philo number = %d is dead\n",philo->data->time + data->time_to_die ,philo[i].id);
             pthread_mutex_lock(&data->dead_lock);
             philo[i].dead_check = 1;
             philo->data->dead = 1;
