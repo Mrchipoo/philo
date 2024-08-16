@@ -17,8 +17,8 @@ void    ft_print(t_philo *philo, char *s, int i, size_t time_to)
         printf("Error with %s\n",s);
     else if (i == 1)
     {
+        printf("%zu philo number = %d is %s\n",philo->data->time,philo->id,s);
         philo->data->time += time_to;
-        printf("%zuphilo number %d is %s\n",philo->data->time / 1000,philo->id,s);
     }
 }
 
@@ -38,9 +38,21 @@ int ft_max(int i, int j)
 
 size_t  get_current_time(void)
 {
-	struct timeval	time;
-
-	if (gettimeofday(&time, NULL) == -1)
+	static struct timeval	time;
+     struct timeval	now;
+    static int flag;
+    if (flag == 0)
+    {
+       if (gettimeofday(&time, NULL) == -1)
+		    write(2, "gettimeofday() error\n", 22);
+        flag = 1;
+    }
+	if (gettimeofday(&now, NULL) == -1)
 		write(2, "gettimeofday() error\n", 22);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+	return ((now.tv_sec - time.tv_sec)* 1000 + (now.tv_usec - time.tv_usec) / 1000);
+}
+
+void    ft_usleep(size_t time)
+{
+    usleep(time * 1000);
 }

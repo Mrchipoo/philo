@@ -28,7 +28,13 @@ int ft_mutex_init(int num, t_time *data)
     if (pthread_mutex_init(&data->meals, NULL) != 0)
         return(ft_print(NULL,"mutex_init",0,0), EXIT_FAILURE);
     if (pthread_mutex_init(&data->lock, NULL) != 0)
-        return(ft_print(NULL,"mutex_init",0,0), EXIT_FAILURE); 
+        return(ft_print(NULL,"mutex_init",0,0), EXIT_FAILURE);
+    if (pthread_mutex_init(&data->dead_lock, NULL) != 0)
+        return(ft_print(NULL,"mutex_init",0,0), EXIT_FAILURE);
+    if (pthread_mutex_init(&data->monitor, NULL) != 0)
+        return(ft_print(NULL,"mutex_init",0,0), EXIT_FAILURE);
+    if (pthread_mutex_init(&data->checker, NULL) != 0)
+        return(ft_print(NULL,"mutex_init",0,0), EXIT_FAILURE);
     while (i < num)
     {
         if (pthread_mutex_init(&data->fork[i], NULL) != 0)
@@ -52,6 +58,9 @@ int ft_mutex_join(t_time data, t_philo *philo)
     pthread_mutex_destroy(&data.print);
     pthread_mutex_destroy(&data.meals);
     pthread_mutex_destroy(&data.lock);
+    pthread_mutex_destroy(&data.dead_lock);
+    pthread_mutex_destroy(&data.monitor);
+    pthread_mutex_destroy(&data.checker);
     free(data.fork);
     free(philo);
     return 0;

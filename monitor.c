@@ -1,41 +1,38 @@
 #include "philo.h"
 
-int check_dead(t_philo *philo, size_t time, t_time *data)
+int check_dead(t_philo *philo, size_t start, t_time *data)
 {
-    size_t start;
-    
-    start = get_current_time();
-    pthread_mutex_lock(&data->lock);
-    // printf("start = %lu\n", start);
-    // printf("last_meal = %lu\n", philo->last_meal);
-    // printf("start - last_meal = %lu\n", start - philo->last_meal);
-    if (start - philo->last_meal > time)//todo
+    pthread_mutex_lock(&data->checker);
+    if (start - philo->last_meal > data->time_to_die)//todo
     {
-        pthread_mutex_unlock(&data->lock);
+        pthread_mutex_unlock(&data->checker);
         return (1);
     }
-    pthread_mutex_unlock(&data->lock);
+    pthread_mutex_unlock(&data->checker);
     return (0);
 }
 
 int ft_dead(t_philo *philo, t_time *data)
 {
     int i;
+    size_t  start;
 
     i = 0;
     while (i < philo->data->philo)
     {
-        pthread_mutex_lock(&data->meals);
-        if (check_dead(&philo[i], data->time_to_die, data) == 1)
+        pthread_mutex_lock(&data->monitor);
+        start = get_current_time();
+        if (check_dead(&philo[i], start, data) == 1)
         {
-            printf("philo n = %d is dead\n", philo[i].id);
-            pthread_mutex_lock(&data->lock);
+            printf("%zu philo n = %d is dead\n",philo->data->time ,philo[i].id);
+            pthread_mutex_lock(&data->dead_lock);
             philo[i].dead_check = 1;
-            pthread_mutex_unlock(&data->lock);
-            pthread_mutex_unlock(&data->meals);
+            philo->data->dead = 1;
+            pthread_mutex_unlock(&data->dead_lock);
+            pthread_mutex_unlock(&data->monitor);
             return (1);
         }
-        pthread_mutex_unlock(&data->meals);
+        pthread_mutex_unlock(&data->monitor);
         i++;
     }
     return (0);
@@ -50,17 +47,17 @@ int ft_full(t_philo *philo)
     finished = 0;
     while (i < philo->data->philo)
     {
-        pthread_mutex_lock(&philo[i].data->lock);
+        pthread_mutex_lock(&philo[i].data->monitor);
         if (philo[i].nb_of_meals >= philo->data->max_meals)
             finished++;
-        pthread_mutex_unlock(&philo[i].data->lock);
+        pthread_mutex_unlock(&philo[i].data->monitor);
         i++;
     }
     if (finished >= philo->data->philo)
     {
-        pthread_mutex_lock(&philo->data->lock);
+        pthread_mutex_lock(&philo->data->dead_lock);
         philo->data->dead = 1;
-        pthread_mutex_unlock(&philo->data->lock);
+        pthread_mutex_unlock(&philo->data->dead_lock);
         return  (1);
     }
     return (0);
