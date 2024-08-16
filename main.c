@@ -8,6 +8,11 @@ int main (int argc, char **argv)
 
     if (argc == 6 || argc == 5)
     {
+        if (checker(argv, argc) == 1)
+        {
+            write(2, "pls enter a number\nexample ./a.out 10 800 200 200 50\n", 51);
+            return (0);
+        }
         ft_data(argc, argv, &data);
         philo = malloc(sizeof(t_philo) * data.philo);
         if (philo == NULL)

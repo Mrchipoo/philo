@@ -28,11 +28,12 @@ int ft_max(int i, int j)
 size_t  get_current_time(void)
 {
 	static struct timeval	time;
-     struct timeval	now;
+    struct timeval	now;
     static int flag;
+
     if (flag == 0)
     {
-       if (gettimeofday(&time, NULL) == -1)
+        if (gettimeofday(&time, NULL) == -1)
 		    write(2, "gettimeofday() error\n", 22);
         flag = 1;
     }
