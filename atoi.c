@@ -41,7 +41,7 @@ int	ft_atoi(char *str)
 	{
 		res = res * 10 +(str[i] - 48);
 		if ((res * sign) > 2147483647 || (res * sign) <= 0)
-			return(-1);
+			return (-1);
 		i++;
 	}
 	return (res);

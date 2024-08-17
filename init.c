@@ -63,5 +63,5 @@ int ft_mutex_join(t_time data, t_philo *philo)
     pthread_mutex_destroy(&data.checker);
     free(data.fork);
     free(philo);
-    return 0;
+    return (0);
 }

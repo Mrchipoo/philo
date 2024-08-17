@@ -1,5 +1,6 @@
 #include "philo.h"
-int checker(char **argv,int argc)
+
+int checker(char **argv, int argc)
 {
     int a;
     int i;
@@ -12,6 +13,5 @@ int checker(char **argv,int argc)
             return (EXIT_FAILURE);
         i++;
     }
-    return(EXIT_SUCCESS);
+    return (EXIT_SUCCESS);
 }
-

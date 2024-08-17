@@ -3,7 +3,7 @@
 int check_dead(t_philo *philo, size_t start, t_time *data)
 {
     pthread_mutex_lock(&data->checker);
-    if (start - philo->last_meal > data->time_to_die)//todo
+    if (start - philo->last_meal >= data->time_to_die)//todo
     {
         pthread_mutex_unlock(&data->checker);
         return (1);
@@ -14,7 +14,7 @@ int check_dead(t_philo *philo, size_t start, t_time *data)
 
 int ft_dead(t_philo *philo, t_time *data)
 {
-    int i;
+    int     i;
     size_t  start;
 
     i = 0;
@@ -49,7 +49,10 @@ int ft_full(t_philo *philo)
     {
         pthread_mutex_lock(&philo[i].data->monitor);
         if (philo[i].nb_of_meals >= philo->data->max_meals)
+        {
+            philo[i].full_check = 1;
             finished++;
+        }
         pthread_mutex_unlock(&philo[i].data->monitor);
         i++;
     }
