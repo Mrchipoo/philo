@@ -10,6 +10,7 @@ int ft_init(t_philo *philo, t_time *data, int num)
         ft_data_philo(i, philo, data);
         if (pthread_create(&philo[i].thread, NULL, ft_routine, &philo[i]) != 0)
             return(ft_print(NULL,"p_create",0,0), EXIT_FAILURE);
+        usleep(10);
         i++;
     }
     return (0);
@@ -52,7 +53,7 @@ int ft_mutex_join(t_time data, t_philo *philo)
     while (i < philo->data->philo)
     {
         if (pthread_join(philo[i].thread, NULL) != 0)
-            return(ft_print(NULL,"p_join",0,0), EXIT_FAILURE);
+            return(ft_print(NULL, "p_join",0,0), EXIT_FAILURE);
         i++;
     }
     pthread_mutex_destroy(&data.print);
