@@ -7,7 +7,7 @@ int	ft_is_digit(char a)
 	return (EXIT_SUCCESS);
 }
 
-int cheking_int(char *str, int i)
+int	cheking_int(char *str, int i)
 {
 	while (str[i])
 	{
@@ -31,8 +31,8 @@ int	ft_atoi(char *str)
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
-        if (str[i] == '-')
-		    sign *= -1;
+		if (str[i] == '-')
+			sign *= -1;
 		i++;
 	}
 	if (cheking_int(str, i) == 1)
