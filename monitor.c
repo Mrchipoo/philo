@@ -1,9 +1,9 @@
 #include "philo.h"
 
-int check_dead(t_philo *philo, size_t start, t_time *data)
+int check_dead(t_philo *philo, t_time *data)
 {
     pthread_mutex_lock(&data->checker);
-    if (start - philo->last_meal >= data->time_to_die)//todo
+    if (get_current_time() - philo->last_meal >= data->time_to_die)
     {
         pthread_mutex_unlock(&data->checker);
         return (1);
@@ -15,14 +15,12 @@ int check_dead(t_philo *philo, size_t start, t_time *data)
 int ft_dead(t_philo *philo, t_time *data)
 {
     int     i;
-    size_t  start;
 
     i = 0;
     while (i < philo->data->philo)
     {
         pthread_mutex_lock(&data->monitor);
-        start = get_current_time();
-        if (check_dead(&philo[i], start, data) == 1)
+        if (check_dead(&philo[i], data) == 1)
         {
             printf("%zu philo number = %d is dead\n",philo->data->time + data->time_to_die ,philo[i].id);
             pthread_mutex_lock(&data->dead_lock);

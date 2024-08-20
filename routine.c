@@ -11,6 +11,9 @@ int ft_routine_help(t_philo *philo, int id)
     pthread_mutex_unlock(&philo->data->print);
     if (philo->data->philo > 1)
     {
+        pthread_mutex_lock(&philo->data->lock);
+        philo->last_meal = get_current_time();
+        pthread_mutex_unlock(&philo->data->lock);
         pthread_mutex_lock(philo->r_fork);
         pthread_mutex_lock(&philo->data->print);
         if (philo->data->dead == 0)
@@ -18,6 +21,8 @@ int ft_routine_help(t_philo *philo, int id)
         pthread_mutex_unlock(&philo->data->print);
         return (0);
     }
+    pthread_mutex_unlock(philo->l_fork);
+    pthread_mutex_unlock(philo->r_fork);
     return (1);
 }
 
@@ -30,27 +35,24 @@ void *ft_routine(void *arg)
     {
         if (ft_routine_help(philo, philo->id) == 1)
             return (NULL);
-        pthread_mutex_lock(&philo->data->lock);
-        philo->last_meal = get_current_time();
-        pthread_mutex_unlock(&philo->data->lock);
         ft_usleep(philo->data->time_to_eat);
         pthread_mutex_lock(&philo->data->print);
         if (philo->data->dead == 0)
             ft_print(philo, "eating", 1, philo->data->time_to_eat);
         pthread_mutex_unlock(&philo->data->print);
+        pthread_mutex_unlock(philo->l_fork);
+        pthread_mutex_unlock(philo->r_fork);
         pthread_mutex_lock(&philo->data->meals);
         philo->nb_of_meals++;
         pthread_mutex_unlock(&philo->data->meals);
-        pthread_mutex_unlock(philo->l_fork);
-        pthread_mutex_unlock(philo->r_fork);
         if (philo->data->dead == 0)
             ft_print(philo, "slepping", 1, philo->data->time_to_sleep);
         ft_usleep(philo->data->time_to_sleep);
-        if (philo->full_check == 0)
-        {
-            ft_usleep(200);
-            ft_print(philo, "thinking", 1, 200);
-        }
+        // if (philo->full_check == 0)
+        // {
+        //     ft_usleep(200);
+        //     ft_print(philo, "thinking", 1, 200);
+        // }
     }
     return (NULL);
 }
