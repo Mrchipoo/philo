@@ -22,7 +22,7 @@ typedef struct s_time
     pthread_mutex_t meals;
     pthread_mutex_t dead_lock;
     pthread_mutex_t monitor;
-    pthread_mutex_t checker;
+    pthread_mutex_t timer;
 } t_time;
 
 typedef struct s_philo
@@ -44,7 +44,7 @@ void    *ft_routine(void *arg);
 void    ft_usleep(size_t time);
 void    ft_monitor(t_philo *philo, t_time *data);
 void    ft_data_philo(int i, t_philo *philo, t_time *data);
-void    ft_print(t_philo *philo, char *s, int i, size_t time_to);
+void    ft_print(t_philo *philo, char *s, int i);
 void    ft_data(int argc, char **argv, t_time *data);
 void     ft_check(int i, t_philo *data);
 int     ft_philo(t_philo *g);
