@@ -12,4 +12,3 @@ void	ft_print(t_philo *philo, char *s, int i)
 		pthread_mutex_unlock(&philo->data->print);
 	}
 }
-

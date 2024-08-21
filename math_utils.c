@@ -27,10 +27,10 @@ int	ft_max(int i, int j)
 
 size_t	get_current_time(void)
 {
+	static int		flag;
 	static struct timeval	time;
 	struct timeval	now;
-	size_t	a;
-	static int flag;
+	size_t		a;
 
 	if (flag == 0)
 	{
@@ -43,11 +43,6 @@ size_t	get_current_time(void)
 	a = (now.tv_sec - time.tv_sec) * 1000;
 	return (a + (now.tv_usec - time.tv_usec) / 1000);
 }
-
-// void	ft_usleep(size_t time)
-// {
-// 	usleep(time * 1000);
-// }
 
 int	ft_usleep(size_t milliseconds)
 {
