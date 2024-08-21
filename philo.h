@@ -41,7 +41,7 @@ typedef struct s_philo
 
 
 void    *ft_routine(void *arg);
-void    ft_usleep(size_t time);
+int     ft_usleep(size_t milliseconds);
 void    ft_monitor(t_philo *philo, t_time *data);
 void    ft_data_philo(int i, t_philo *philo, t_time *data);
 void    ft_print(t_philo *philo, char *s, int i);

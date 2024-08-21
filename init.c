@@ -10,7 +10,7 @@ int ft_init(t_philo *philo, t_time *data, int num)
         ft_data_philo(i, philo, data);
         if (pthread_create(&philo[i].thread, NULL, ft_routine, &philo[i]) != 0)
             return(ft_print(NULL,"p_create",0), EXIT_FAILURE);
-        usleep(100);
+        //usleep(1);
         i++;
     }
     return (0);

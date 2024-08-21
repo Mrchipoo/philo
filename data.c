@@ -16,7 +16,7 @@ void    ft_data(int argc, char **argv, t_time *data)
 
 void    ft_data_philo(int i, t_philo *philo, t_time *data)
 {
-    philo[i].id = i;
+    philo[i].id = i + 1;
     philo[i].data = data;
     philo[i].nb_of_meals = 0;
     ft_check(i, philo);

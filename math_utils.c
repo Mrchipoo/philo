@@ -44,7 +44,17 @@ size_t	get_current_time(void)
 	return (a + (now.tv_usec - time.tv_usec) / 1000);
 }
 
-void	ft_usleep(size_t time)
+// void	ft_usleep(size_t time)
+// {
+// 	usleep(time * 1000);
+// }
+
+int	ft_usleep(size_t milliseconds)
 {
-	usleep(time * 1000);
+	size_t	start;
+
+	start = get_current_time();
+	while ((get_current_time() - start) < milliseconds)
+		usleep(500);
+	return (0);
 }

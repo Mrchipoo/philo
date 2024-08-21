@@ -3,7 +3,7 @@
 int check_dead(t_philo *philo, t_time *data)
 {
     pthread_mutex_lock(&data->timer);
-    if (get_current_time() - philo->last_meal >= data->time_to_die)
+    if (get_current_time() - philo->last_meal > data->time_to_die)
     {
         pthread_mutex_unlock(&data->timer);
         return (1);
@@ -48,13 +48,13 @@ int ft_full(t_philo *philo)
     finished = 0;
     while (i < philo->data->philo)
     {
-        pthread_mutex_lock(&philo[i].data->monitor);
+        pthread_mutex_lock(&philo[i].data->meals);
         if (philo[i].nb_of_meals >= philo->data->max_meals)
         {
             philo[i].full_check = 1;
             finished++;
         }
-        pthread_mutex_unlock(&philo[i].data->monitor);
+        pthread_mutex_unlock(&philo[i].data->meals);
         i++;
     }
     if (finished >= philo->data->philo)
