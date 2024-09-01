@@ -1,22 +1,8 @@
 #include "philo.h"
 
-int	not_dead(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->data->dead_lock);
-	if (philo->data->dead == 1 || philo->dead_check == 1)
-	{
-		pthread_mutex_unlock(&philo->data->dead_lock);
-		return (1);
-	}
-	pthread_mutex_unlock(&philo->data->dead_lock);
-	return (0);
-}
-
 int	philo_eat(t_philo *philo)
 {
-	if (!not_dead(philo))
-		ft_print(philo, "eating", 1);
-	else
+	if (ft_print(philo, "is eating", 1) == 1)
 	{
 		pthread_mutex_unlock(philo->r_fork);
 		pthread_mutex_unlock(philo->l_fork);
@@ -36,9 +22,14 @@ int	philo_eat(t_philo *philo)
 
 int	ft_routine_help(t_philo *philo, int id)
 {
+	if (philo->data->philo % 2 == 0 && id % 2 == 0)
+		ft_usleep(5);
 	pthread_mutex_lock(philo->l_fork);
-	if (!not_dead(philo))
-		printf("%zu philo number = %d took a l_fork\n", get_current_time(), id);
+	if (ft_print(philo, "has taken a fork", 1) == 1)
+	{
+		pthread_mutex_unlock(philo->l_fork);
+		return (EXIT_FAILURE);
+	}
 	if (philo->data->philo == 1)
 	{
 		ft_usleep(philo->data->time_to_die);
@@ -46,8 +37,12 @@ int	ft_routine_help(t_philo *philo, int id)
 		return (EXIT_FAILURE);
 	}
 	pthread_mutex_lock(philo->r_fork);
-	if (!not_dead(philo))
-		printf("%zu philo number = %d took a r_fork\n", get_current_time(), id);
+	if (ft_print(philo, "has taken a fork", 1) == 1)
+	{
+		pthread_mutex_unlock(philo->r_fork);
+		pthread_mutex_unlock(philo->l_fork);
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -56,18 +51,17 @@ void	*ft_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (!not_dead(philo))
+	while (1)
 	{
 		if (ft_routine_help(philo, philo->id) == 1)
 			return (NULL);
 		if (philo_eat(philo) == 1)
 			return (NULL);
-		if (!not_dead(philo))
-			ft_print(philo, "slepping", 1);
+		if (ft_print(philo, "is sleeping", 1) == 1)
+			return (NULL);
 		ft_usleep(philo->data->time_to_sleep);
-		if (!not_dead(philo))
-			ft_print(philo, "Thinking", 1);
-		ft_usleep(10);
+		if (ft_print(philo, "is thinking", 1) == 1)
+			return (NULL);
 	}
 	return (NULL);
 }

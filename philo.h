@@ -38,13 +38,8 @@ typedef struct s_philo
 	pthread_mutex_t	*l_fork;
 }	t_philo;
 
-void	*ft_routine(void *arg);
+int		ft_print(t_philo *philo, char *s, int i);
 int		ft_usleep(size_t milliseconds);
-void	ft_monitor(t_philo *philo, t_time *data);
-void	ft_data_philo(int i, t_philo *philo, t_time *data);
-void	ft_print(t_philo *philo, char *s, int i);
-void	ft_data(int argc, char **argv, t_time *data);
-void	ft_check(int i, t_philo *data);
 int		ft_philo(t_philo *g);
 int		ft_atoi(char *str);
 int		checker(char **argv, int argc);
@@ -53,5 +48,11 @@ int		ft_init(t_philo *philo, t_time *data, int num);
 int		ft_max(int i, int j);
 int		ft_min(int i, int j);
 int		ft_mutex_join(t_time data, t_philo *philo);
+void	*ft_routine(void *arg);
+void	ft_monitor(t_philo *philo, t_time *data);
+void	ft_data_philo(int i, t_philo *philo, t_time *data);
+void	ft_data(int argc, char **argv, t_time *data);
+void	ft_check(int i, t_philo *data);
+void	ft_error(void);
 size_t	get_current_time(void);
 #endif

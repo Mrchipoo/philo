@@ -9,7 +9,7 @@ int	main(int argc, char **argv)
 	{
 		if (checker(argv, argc) == 1)
 		{
-			write(2, "pls enter valid arg\nexample ./philo 5 800 200 200 10\n", 54);
+			ft_error();
 			return (0);
 		}
 		ft_data(argc, argv, &data);
@@ -24,6 +24,6 @@ int	main(int argc, char **argv)
 		ft_mutex_join(data, philo);
 	}
 	else
-		write(2, "pls enter valid arg\nexample ./philo 5 800 200 200 10\n", 54);
+		ft_error();
 	return (0);
 }
