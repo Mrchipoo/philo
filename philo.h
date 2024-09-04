@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: echoubby <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/04 13:07:32 by echoubby          #+#    #+#             */
+/*   Updated: 2024/09/04 13:07:34 by echoubby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 # include <stdio.h>
@@ -9,13 +21,13 @@
 
 typedef struct s_time
 {
-	int		max_meals;
-	int		dead;
-	int		philo;
-	size_t	time_to_eat;
-	size_t	time_to_sleep;
-	size_t	time_to_die;
-	size_t	time;
+	int				max_meals;
+	int				dead;
+	int				philo;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	size_t			time_to_die;
+	size_t			time;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	print;
 	pthread_mutex_t	lock;
@@ -27,13 +39,13 @@ typedef struct s_time
 
 typedef struct s_philo
 {
-	int			id;
-	int			dead_check;
-	int			nb_of_meals;
-	int			full_check;
-	size_t		last_meal;
-	t_time		*data;
-	pthread_t	thread;
+	int				id;
+	int				dead_check;
+	int				nb_of_meals;
+	int				full_check;
+	size_t			last_meal;
+	t_time			*data;
+	pthread_t		thread;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
 }	t_philo;

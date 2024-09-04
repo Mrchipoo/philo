@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   math_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: echoubby <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/04 13:08:13 by echoubby          #+#    #+#             */
+/*   Updated: 2024/09/04 13:08:15 by echoubby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	ft_check(int i, t_philo *philo)
@@ -27,10 +39,10 @@ int	ft_max(int i, int j)
 
 size_t	get_current_time(void)
 {
-	static int		flag;
+	static int				flag;
+	size_t					a;
 	static struct timeval	time;
-	struct timeval	now;
-	size_t		a;
+	struct timeval			now;
 
 	if (flag == 0)
 	{

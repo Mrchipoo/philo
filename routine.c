@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: echoubby <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/04 13:07:40 by echoubby          #+#    #+#             */
+/*   Updated: 2024/09/04 13:07:42 by echoubby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	philo_eat(t_philo *philo)
@@ -22,7 +34,7 @@ int	philo_eat(t_philo *philo)
 
 int	ft_routine_help(t_philo *philo, int id)
 {
-	if (philo->data->philo % 2 == 0 && id % 2 == 0)
+	if (id % 2 == 0)
 		ft_usleep(5);
 	pthread_mutex_lock(philo->l_fork);
 	if (ft_print(philo, "has taken a fork", 1) == 1)
