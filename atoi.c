@@ -21,6 +21,8 @@ int	ft_is_digit(char a)
 
 int	cheking_int(char *str, int i)
 {
+	if (str[i] == '\0')
+		return (EXIT_FAILURE);
 	while (str[i])
 	{
 		if (ft_is_digit(str[i]))

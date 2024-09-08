@@ -23,7 +23,7 @@ int	checker(char **argv, int argc)
 		a = ft_atoi(argv[i]);
 		if (i == 1 && a == 0)
 			return (EXIT_FAILURE);
-		if (a == -1)
+		else if (a == -1)
 			return (EXIT_FAILURE);
 		i++;
 	}

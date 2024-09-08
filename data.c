@@ -35,4 +35,5 @@ void	ft_data_philo(int i, t_philo *philo, t_time *data)
 	philo[i].dead_check = 0;
 	philo[i].full_check = 0;
 	philo[i].last_meal = get_current_time();
+	philo[i].eat_log = 0;
 }

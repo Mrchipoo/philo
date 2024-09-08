@@ -76,22 +76,52 @@ int	ft_full(t_philo *philo)
 	return (0);
 }
 
+void	ft_log(t_philo *philo, t_time *data)
+{
+	int		i;
+	size_t	time;
+	size_t	on;
+	size_t	in;
+
+	i = 0;
+	on = data->time_to_eat + data->time_to_sleep;
+	in = (data->time_to_die - on) / 2;
+	on += in;
+	while (i < philo->data->philo)
+	{
+		pthread_mutex_lock(&philo->data->timer);
+		time = get_current_time() - philo[i].last_meal;
+		pthread_mutex_unlock(&philo->data->timer);
+		pthread_mutex_lock(&philo[i].data->meals);
+		if (philo[i].eat_log == 1 && time > on)
+		{
+			philo[i].eat_log = 0;
+		}
+		pthread_mutex_unlock(&philo[i].data->meals);
+		i++;
+	}
+}
+
 void	ft_monitor(t_philo *philo, t_time *data)
 {
 	if (data->max_meals != -1)
 	{
 		while (1)
 		{
+			ft_log(philo, data);
 			if (ft_dead(philo, data) == 1 || ft_full(philo) == 1)
 				break ;
+			usleep(50);
 		}
 	}
 	else if (data->max_meals == -1)
 	{
 		while (1)
 		{
+			ft_log(philo, data);
 			if (ft_dead(philo, data) == 1)
 				break ;
+			usleep(50);
 		}
 	}
 	return ;

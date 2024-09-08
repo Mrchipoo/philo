@@ -43,6 +43,7 @@ typedef struct s_philo
 	int				dead_check;
 	int				nb_of_meals;
 	int				full_check;
+	int				eat_log;
 	size_t			last_meal;
 	t_time			*data;
 	pthread_t		thread;
@@ -51,7 +52,7 @@ typedef struct s_philo
 }	t_philo;
 
 int		ft_print(t_philo *philo, char *s, int i);
-int		ft_usleep(size_t milliseconds);
+int		ft_usleep(t_philo *philo, size_t milliseconds);
 int		ft_philo(t_philo *g);
 int		ft_atoi(char *str);
 int		checker(char **argv, int argc);

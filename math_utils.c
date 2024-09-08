@@ -56,12 +56,21 @@ size_t	get_current_time(void)
 	return (a + (now.tv_usec - time.tv_usec) / 1000);
 }
 
-int	ft_usleep(size_t milliseconds)
+int	ft_usleep(t_philo *philo, size_t milliseconds)
 {
 	size_t	start;
 
 	start = get_current_time();
 	while ((get_current_time() - start) < milliseconds)
+	{
+		pthread_mutex_lock(&philo->data->dead_lock);
+		if (philo->data->dead == 1 || philo->dead_check == 1)
+		{
+			pthread_mutex_unlock(&philo->data->dead_lock);
+			return (1);
+		}
+		pthread_mutex_unlock(&philo->data->dead_lock);
 		usleep(500);
+	}
 	return (0);
 }
