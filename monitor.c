@@ -94,9 +94,7 @@ void	ft_log(t_philo *philo, t_time *data)
 		pthread_mutex_unlock(&philo->data->timer);
 		pthread_mutex_lock(&philo[i].data->meals);
 		if (philo[i].eat_log == 1 && time > on)
-		{
 			philo[i].eat_log = 0;
-		}
 		pthread_mutex_unlock(&philo[i].data->meals);
 		i++;
 	}
@@ -111,7 +109,6 @@ void	ft_monitor(t_philo *philo, t_time *data)
 			ft_log(philo, data);
 			if (ft_dead(philo, data) == 1 || ft_full(philo) == 1)
 				break ;
-			usleep(50);
 		}
 	}
 	else if (data->max_meals == -1)
@@ -121,7 +118,6 @@ void	ft_monitor(t_philo *philo, t_time *data)
 			ft_log(philo, data);
 			if (ft_dead(philo, data) == 1)
 				break ;
-			usleep(50);
 		}
 	}
 	return ;

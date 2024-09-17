@@ -26,18 +26,9 @@ int	ft_print(t_philo *philo, char *s, int i)
 		}
 		pthread_mutex_unlock(&philo->data->dead_lock);
 		i = philo->id;
-		if (i == 1)
-		{
-			pthread_mutex_lock(&philo->data->print);
-			printf("%zu %d %s\n", get_current_time(), philo->id, s);
-			pthread_mutex_unlock(&philo->data->print);
-		}
-		else
-		{
-			pthread_mutex_lock(&philo->data->print);
-			printf("%zu %d %s\n", get_current_time(), philo->id, s);
-			pthread_mutex_unlock(&philo->data->print);
-		}
+		pthread_mutex_lock(&philo->data->print);
+		printf("%zu %d %s\n", get_current_time(), philo->id, s);
+		pthread_mutex_unlock(&philo->data->print);
 	}
 	return (0);
 }

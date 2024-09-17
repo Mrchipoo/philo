@@ -6,11 +6,19 @@
 /*   By: echoubby <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 13:07:40 by echoubby          #+#    #+#             */
-/*   Updated: 2024/09/04 13:07:42 by echoubby         ###   ########.fr       */
+/*   Updated: 20p4/09/04 13:07:42 by echoubby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	philo_check(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->meals);
+	if (philo->eat_log == 1)
+		ft_usleep(philo, 1);
+	pthread_mutex_unlock(&philo->data->meals);
+}
 
 int	philo_eat(t_philo *philo)
 {
@@ -35,8 +43,8 @@ int	philo_eat(t_philo *philo)
 
 int	ft_routine_help(t_philo *philo)
 {
-	if (philo->eat_log == 1 && (philo->data->philo % 2) == 1)
-		ft_usleep(philo, 10);
+	if ((philo->data->philo % 2) == 1)
+		philo_check(philo);
 	pthread_mutex_lock(philo->l_fork);
 	if (ft_print(philo, "has taken a fork", 1) == 1)
 	{
@@ -77,6 +85,7 @@ void	*ft_routine(void *arg)
 		ft_usleep(philo, philo->data->time_to_sleep);
 		if (ft_print(philo, "is thinking", 1) == 1)
 			return (NULL);
+		ft_usleep(philo, 1);
 	}
 	return (NULL);
 }
