@@ -16,8 +16,12 @@ void	philo_check(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->meals);
 	if (philo->eat_log == 1)
-		ft_usleep(philo, 1);
-	pthread_mutex_unlock(&philo->data->meals);
+	{
+		pthread_mutex_unlock(&philo->data->meals);
+		ft_usleep(philo, 10);
+	}
+	else
+		pthread_mutex_unlock(&philo->data->meals);
 }
 
 int	philo_eat(t_philo *philo)
@@ -85,7 +89,6 @@ void	*ft_routine(void *arg)
 		ft_usleep(philo, philo->data->time_to_sleep);
 		if (ft_print(philo, "is thinking", 1) == 1)
 			return (NULL);
-		ft_usleep(philo, 1);
 	}
 	return (NULL);
 }
